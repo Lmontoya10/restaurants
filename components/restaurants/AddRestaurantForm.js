@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native'
-import { Avatar, Button, Icon, Input } from 'react-native-elements'
+import { StyleSheet, Text, View, ScrollView, Alert, Dimensions } from 'react-native'
+import { Avatar, Button, Icon, Image, Input } from 'react-native-elements'
 import CountryPicker from 'react-native-country-picker-modal'
 import { map, size, filter } from 'lodash'
 
 import { loadImageFromGallery } from '../../utils/helpers'
+import { Assets } from '@react-navigation/stack'
 
-
-
+const widthScreen = Dimensions.get("window").width
 
 export default function AddRestaurantForm({ toastRef, setLoading, navigation }) {
     const [formData, setFormData] = useState(defaultFormValues())
@@ -25,7 +25,10 @@ export default function AddRestaurantForm({ toastRef, setLoading, navigation }) 
     }
 
     return (
-        <View style={styles.viewContainer}>
+        <ScrollView style={styles.viewContainer}>
+            <ImageRestaurant
+            imageRestaurant={imagesSelected[0]}
+            />
             <FormAdd
                 formData={formData}
                 setFormData={setFormData}
@@ -45,6 +48,21 @@ export default function AddRestaurantForm({ toastRef, setLoading, navigation }) 
                 title="Crear Restaurante"
                 onPress={addRestaurant}
                 buttonStyle={styles.btnAddRestaurant}
+            />
+        </ScrollView>
+    )
+}
+
+function ImageRestaurant({ imageRestaurant }) {
+    return (
+        <View style={styles.viewPhoto}>
+            <Image
+                style={{ width: widthScreen, height: 200 }}
+                source={
+                    imageRestaurant
+                        ? { uri: imageRestaurant }
+                        : require("../../assets/no-image.png")
+                }
             />
         </View>
     )
@@ -66,19 +84,19 @@ function UploadImage({ toastRef, imagesSelected, setImagesSelected }) {
             "¿estas seguro que quieres eliminar la imagen?",
             [
                 {
-                    text:"NO",
-                    style:"cancel",   
+                    text: "No",
+                    style: "cancel",
                 },
                 {
-                    text:"Si",
-                    onPress:()=>{
+                    text: "Si",
+                    onPress: () => {
                         setImagesSelected(
-                            filter(imagesSelected,(imageUrl) =>imageUrl !== image)
+                            filter(imagesSelected, (imageUrl) => imageUrl !== image)
                         )
                     }
                 }
             ],
-            {cancelable : false}
+            { cancelable: false }
         )
     }
     return (
@@ -194,6 +212,7 @@ const defaultFormValues = () => {
     }
 }
 
+
 const styles = StyleSheet.create({
     viewContainer: {
         height: "100%",
@@ -234,6 +253,11 @@ const styles = StyleSheet.create({
         width: 70,
         height: 70,
         marginRight: 10
+    },
+    viewPhoto:{
+        alignItems:"center",
+        height:200,
+        marginBottom: 20
     }
 
 })
