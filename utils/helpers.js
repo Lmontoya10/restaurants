@@ -1,7 +1,9 @@
 
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
+import * as Location from 'expo-location'
 import { Alert } from 'react-native'
+import { size } from 'lodash';
 
 
 export function validateEmail(email) {
@@ -30,10 +32,37 @@ export const loadImageFromGallery = async (array) => {
     return response
 }
 
-export const fileToBlob = async(path) => {
+export const fileToBlob = async (path) => {
     const file = await fetch(path)
     const blob = await file.blob()
     return blob
 }
 
 
+export const getCurrentLocation = async () => {
+    const response = { status: false, location: null }
+    const resultPermissions = await Permissions.askAsync(Permissions.LOCATION)
+
+    if (resultPermissions.status== "denied") {
+        Alert.alert("Debes dar permisos para la localizacion")
+        return response
+    }   
+    const position = await Location.getCurrentPositionAsync({})
+    const location = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta:0.001
+    }
+    response.status = true
+    response.location=location
+
+    return response
+}
+export const formatPhone = (callingCode, phone) => {
+    if (size(phone) < 10)
+    {
+        return `+(${callingCode}) ${phone}`
+    }
+    return `+(${callingCode}) ${phone.substr(0, 3)} ${phone.substr(3, 3)} ${phone.substr(6, 4)}`
+}

@@ -13,16 +13,21 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lfm.restaurants"
     },
     "android": {
+      "package": "com.lfm.restaurants",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD6P54Hlx5HTMAMN8oj7QXAU0lm5I7Fevg"
+        }
       },
       "permissions": [
         "CAMERA_ROLL",
