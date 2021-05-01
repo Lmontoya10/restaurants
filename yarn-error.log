@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\lmontoyaj\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-nativa-maps
+  C:\Program Files\nodejs\node.exe C:\Users\lmontoyaj\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add moment
 
 PATH: 
-  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Users\soporte\AppData\Local\Microsoft\WindowsApps;C:\xampp\php;C:\Program Files\iis express\PHP\v7.4;C:\adb;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\Azure Data Studio\bin;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Users\lmontoyaj\AppData\Local\Programs\Git\cmd;C:\Program Files\nodejs\;C:\Users\lmontoyaj\AppData\Local\Microsoft\WindowsApps;C:\Users\lmontoyaj\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\lmontoyaj\AppData\Local\GitHubDesktop\bin;C:\Users\lmontoyaj\AppData\Roaming\npm
+  C:\Users\lmontoyaj\AppData\Local\Programs\Git\mingw64\bin;C:\Users\lmontoyaj\AppData\Local\Programs\Git\usr\bin;C:\Users\lmontoyaj\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn;C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn;C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio;C:\Program Files\Microsoft\Web Platform Installer;C:\Users\soporte\AppData\Local\Microsoft\WindowsApps;C:\xampp\php;C:\Program Files\iis express\PHP\v7.4;C:\adb;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn;C:\Program Files\Azure Data Studio\bin;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn;C:\Program Files\Microsoft SQL Server\110\Tools\Binn;C:\Program Files\Microsoft SQL Server\110\DTS\Binn;C:\Users\lmontoyaj\AppData\Local\Programs\Git\cmd;C:\Program Files\nodejs;C:\jdk-16\bin;C:\Users\lmontoyaj\AppData\Local\Microsoft\WindowsApps;C:\Users\lmontoyaj\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\lmontoyaj\AppData\Local\Programs\Git\cmd;C:\Program Files\Azure Data Studio\bin;C:\Users\lmontoyaj\AppData\Local\GitHubDesktop\bin;C:\Users\lmontoyaj\AppData\Roaming\npm
 
 Yarn version: 
   1.22.10
@@ -14,17 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/react-nativa-maps: Not found
-      at Request.params.callback [as _callback] (C:\Users\lmontoyaj\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66988:18)
-      at Request.self.callback (C:\Users\lmontoyaj\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140662:22)
-      at Request.emit (events.js:314:20)
-      at Request.<anonymous> (C:\Users\lmontoyaj\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141634:10)
-      at Request.emit (events.js:314:20)
-      at IncomingMessage.<anonymous> (C:\Users\lmontoyaj\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141556:12)
-      at Object.onceWrapper (events.js:420:28)
-      at IncomingMessage.emit (events.js:326:22)
-      at endReadableNT (_stream_readable.js:1241:12)
-      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+  Error: EPERM: operation not permitted, unlink 'C:\Users\lmontoyaj\Documents\Proyectos React\restaurants\node_modules\@babel\generator\node_modules\.bin'
 
 npm manifest: 
   {
@@ -44,11 +34,13 @@ npm manifest:
       "@react-navigation/stack": "^5.14.3",
       "expo": "~40.0.0",
       "expo-image-picker": "~9.2.0",
+      "expo-location": "~10.0.0",
       "expo-permissions": "~10.0.0",
       "expo-status-bar": "~1.0.3",
       "firebase": "7.9.0",
       "lodash": "^4.17.21",
       "metro-react-native-babel-preset": "^0.65.1",
+      "random-uuid-v4": "^0.0.9",
       "react": "16.13.1",
       "react-dom": "16.13.1",
       "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
@@ -57,9 +49,12 @@ npm manifest:
       "react-native-elements": "^3.2.0",
       "react-native-gesture-handler": "~1.8.0",
       "react-native-keyboard-aware-scroll-view": "^0.9.3",
+      "react-native-maps": "0.27.1",
+      "react-native-open-maps": "^0.3.5",
       "react-native-reanimated": "^2.0.0",
       "react-native-safe-area-context": "3.1.9",
       "react-native-screens": "~2.15.2",
+      "react-native-snap-carousel": "^3.9.1",
       "react-native-vector-icons": "^8.1.0",
       "react-native-web": "^0.15.0"
     },
@@ -6080,7 +6075,7 @@ Lockfile:
     dependencies:
       asap "~2.0.6"
   
-  prop-types@15.7.2, prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+  prop-types@15.7.2, prop-types@^15.5.10, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
     version "15.7.2"
     resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
     integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -6136,6 +6131,16 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.6.tgz#26ed3c8243a431b2924aca84cc90471f35d5a0ee"
     integrity sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==
   
+  query-string@^6.1.0:
+    version "6.14.1"
+    resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.14.1.tgz#7ac2dca46da7f309449ba0f86b1fd28255b0c86a"
+    integrity sha512-XDxAeVmpfu1/6IjyT/gXHOl+S0vQ9owggJ30hhWKdHAsNPOcasn5o9BW0eejZqL2e4vMjhAxoW3jVHcD6mbcYw==
+    dependencies:
+      decode-uri-component "^0.2.0"
+      filter-obj "^1.1.0"
+      split-on-first "^1.0.0"
+      strict-uri-encode "^2.0.0"
+  
   query-string@^6.13.6:
     version "6.14.0"
     resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.14.0.tgz#0b7b7ca326f5facf10dd2d45d26645cd287f8c92"
@@ -6151,6 +6156,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
     integrity sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
   
+  random-uuid-v4@^0.0.9:
+    version "0.0.9"
+    resolved "https://registry.yarnpkg.com/random-uuid-v4/-/random-uuid-v4-0.0.9.tgz#b46f035f83ef815d78637411bb3203e75fa3b401"
+    integrity sha512-6kF9H9mDFECO0WtLFf6MRFHeR8KnocTvp+yea27pvBZK4PAM2w7/id2Eol9/RqqYnYEjB0QMDRBeN0Vsn/pxtA==
+  
   range-parser@~1.2.1:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
@@ -6165,6 +6175,14 @@ Lockfile:
       ini "~1.3.0"
       minimist "^1.2.0"
       strip-json-comments "~2.0.1"
+  
+  react-addons-shallow-compare@15.6.2:
+    version "15.6.2"
+    resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.6.2.tgz#198a00b91fc37623db64a28fd17b596ba362702f"
+    integrity sha1-GYoAuR/DdiPbZKKP0XtZa6NicC8=
+    dependencies:
+      fbjs "^0.8.4"
+      object-assign "^4.1.0"
   
   react-async-hook@3.6.1:
     version "3.6.1"
@@ -6256,6 +6274,18 @@ Lockfile:
       prop-types "^15.6.2"
       react-native-iphone-x-helper "^1.0.3"
   
+  react-native-maps@0.27.1:
+    version "0.27.1"
+    resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.27.1.tgz#2f10cd417bb2fd938c9e015b1c9b6d9b1a44b97f"
+    integrity sha512-HygBkZBecTnIVRYrSiLRAvu4OmXOYso/A7c6Cy73HkOh9CgGV8Ap5eBea24tvmFGptjj5Hg8AJ94/YbmWK1Okw==
+  
+  react-native-open-maps@^0.3.5:
+    version "0.3.5"
+    resolved "https://registry.yarnpkg.com/react-native-open-maps/-/react-native-open-maps-0.3.5.tgz#719a002db50b2f5fb4e4d043c174c0827b87f2ee"
+    integrity sha512-JPRZVj8gYJDHqJZV90BQIemIvTmoxCE8T3CVD3w25ZNXjf822xAespJ+JRRCB8gZ58TnmcrzcRG8cst/tJeIhQ==
+    dependencies:
+      query-string "^6.1.0"
+  
   react-native-ratings@^7.3.0:
     version "7.4.0"
     resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-7.4.0.tgz#2b93c9bdd201238591d09747791b4c55e5862959"
@@ -6288,6 +6318,14 @@ Lockfile:
     version "0.3.1"
     resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz#24d0cfc335a2c730f6d58bd7b43ea5a41be4b49f"
     integrity sha512-mKOfBLIBFBcs9br1rlZDvxD5+mAl8Gfr5CounwJtxI6Z82rGrMO+Kgl9EIg3RMVf3G855a85YVqHJL2f5EDRlw==
+  
+  react-native-snap-carousel@^3.9.1:
+    version "3.9.1"
+    resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-3.9.1.tgz#6fd9bd8839546c2c6043a41d2035afbc6fe0443e"
+    integrity sha512-xWEGusacIgK1YaDXLi7Gao2+ISLoGPVEBR8fcMf4tOOJQufutlNwkoLu0l6B8Qgsrre0nTxoVZikRgGRDWlLaQ==
+    dependencies:
+      prop-types "^15.6.1"
+      react-addons-shallow-compare "15.6.2"
   
   react-native-vector-icons@^8.1.0:
     version "8.1.0"

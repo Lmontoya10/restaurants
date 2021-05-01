@@ -49,7 +49,7 @@ export default function AddRestaurantForm({ toastRef, setLoading, navigation }) 
         const responseAddDocument = await addDocumentWithoutId("restaurants", restaurant)
         setLoading(false)
 
-        
+
         if (!responseAddDocument.statusResponse) {
             toastRef.current.show("Error al grabar el restaurante, por favor intenta más tarde.", 3000)
             return

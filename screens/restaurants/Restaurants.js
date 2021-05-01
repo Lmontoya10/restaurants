@@ -7,7 +7,7 @@ import firebase from 'firebase/app'
 
 import Loading from '../../components/Loading'
 import ListRestaurants from '../../components/restaurants/ListRestaurants'
-import { getRestaurants,getMoreRestaurants } from '../../utils/actions'
+import { getRestaurants, getMoreRestaurants } from '../../utils/actions'
 
 
 
@@ -27,15 +27,17 @@ export default function Restaurants({ navigation }) {
     }, [])
 
     useFocusEffect(
-        useCallback(async () => {
-            setLoading(true)
-            const response = await getRestaurants(limitRestaurants)
-            if (response.statusResponse) {
-                setStartRestaurant(response.startRestaurant)
-                setRestaurants(response.restaurants)
+        useCallback(() => {
+            async function getData() {
+                setLoading(true)
+                const response = await getRestaurants(limitRestaurants)
+                if (response.statusResponse) {
+                    setStartRestaurant(response.startRestaurant)
+                    setRestaurants(response.restaurants)
+                }
+                setLoading(false)
             }
-            setLoading(false)
-
+            getData()
         }, [])
     )
     const handleLoadMore = async () => {
@@ -43,11 +45,11 @@ export default function Restaurants({ navigation }) {
             return
         }
         setLoading(true)
-        const response = await getMoreRestaurants(limitRestaurants,startRestaurant)
+        const response = await getMoreRestaurants(limitRestaurants, startRestaurant)
         if (response.statusResponse) {
             setStartRestaurant(response.startRestaurant)
-            setRestaurants([...restaurants,...response.restaurants])
-            
+            setRestaurants([...restaurants, ...response.restaurants])
+
         }
         setLoading(false)
 
