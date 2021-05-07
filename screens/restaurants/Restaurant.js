@@ -11,8 +11,16 @@ import CarouselImages from '../../components/CarouselImages'
 import Loading from '../../components/Loading'
 import MapRestaurant from '../../components/restaurants/MapRestaurant'
 import ListReviews from '../../components/restaurants/ListReviews'
-import { addDocumentWithoutId, getCurrentUser, getDocumentById, getIsFavofite, deleteFavorite } from '../../utils/actions'
-import { formatPhone } from '../../utils/helpers'
+import {
+    addDocumentWithoutId,
+    getCurrentUser,
+    getDocumentById,
+    getIsFavofite, deleteFavorite,
+    sendPushNotification,
+    setNotificationMessage
+} from '../../utils/actions'
+import { callNumber, formatPhone, sendEmail, sendWhatsApp } from '../../utils/helpers'
+import Modal from '../../components/Modal'
 
 
 const widthScreen = Dimensions.get("window").width
@@ -25,12 +33,15 @@ export default function Restaurant({ navigation, route }) {
     const [activeSlide, setActiveSlide] = useState(0)
     const [isFavorite, setIsFavorite] = useState(false)
     const [userLogged, setUserLogged] = useState(false)
+    const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [modalNotification, setModalNotification] = useState(false)
 
 
 
     firebase.auth().onAuthStateChanged(user => {
         user ? setUserLogged(true) : setUserLogged(false)
+        setCurrentUser(user)
     })
 
     navigation.setOptions({ title: name })
@@ -87,8 +98,8 @@ export default function Restaurant({ navigation, route }) {
         if (response.statusResponse) {
             setIsFavorite(false)
             toastRef.current.show("Restaurante eliminado de favoritos.", 3000)
-            
-        }else{
+
+        } else {
             toastRef.current.show("no se pudo eliminar el restaurante de favoritos, por favor intenta mas tarde", 3000)
         }
 
@@ -132,10 +143,21 @@ export default function Restaurant({ navigation, route }) {
                 address={restaurant.address}
                 email={restaurant.email}
                 phone={formatPhone(restaurant.callingCode, restaurant.phone)}
+                currentUser={currentUser}
+                callingCode={restaurant.callingCode}
+                phoneNoFormat={restaurant.phone}
+                setLoading={setLoading}
+                setModalNotification={setModalNotification}
             />
             <ListReviews
                 navigation={navigation}
                 idRestaurant={restaurant.id}
+            />
+            <SendMessage
+                modalNotification={modalNotification}
+                setModalNotification={setModalNotification}
+                setLoading={setLoading}
+                restaurant={restaurant}
             />
             <Toast ref={toastRef} position="center" opacity={0.9} />
             <Loading isVisible={loading} text="por favor espere..." />
@@ -143,12 +165,95 @@ export default function Restaurant({ navigation, route }) {
     )
 }
 
-function RestaurantInfo({ name, location, address, email, phone }) {
+function SendMessage({ modalNotification, setModalNotification, setLoading, restaurant }) {
+    const [title, setTitle] = useState(null)
+    const [errorTitle, setErrorTitle] = useState(null)
+    const [message, setMessage] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
+
+    return (
+        <Modal
+            isVisible={modalNotification}
+            setVisible={setModalNotification}
+        >
+            <View>
+
+            </View>
+        </Modal>
+    )
+
+
+}
+
+function RestaurantInfo({
+    name,
+    location,
+    address,
+    email,
+    phone,
+    currentUser,
+    callingCode,
+    phoneNoFormat,
+    setLoading,
+    setModalNotification
+}) {
     const listInfo = [
-        { text: address, iconName: "map-marker" },
-        { text: phone, iconName: "phone" },
-        { text: email, iconName: "at" }
+        { type: "address", text: address, iconLeft: "map-marker", iconRight: "message-text-outline" },
+        { type: "phone", text: phone, iconLeft: "phone", iconRight: "whatsapp" },
+        { type: "email", text: email, iconLeft: "at" },
     ]
+
+    const actionLeft = (type) => {
+        if (type == "phone") {
+            callNumber(phone)
+        } else if (type == "email") {
+            if (currentUser) {
+                sendEmail(email, "interesado", `soy ${currentUser.displayName}, estoy interesado en sus servicios`)
+            } else {
+                sendEmail(email, "interesado", `estoy interesado en sus servicios`)
+            }
+        }
+    }
+
+    const actionRight = (type) => {
+        if (type == "phone") {
+            if (currentUser) {
+                sendWhatsApp(`${callingCode}${phoneNoFormat}`, `soy ${currentUser.displayName}, estoy interesado en sus servicios`)
+            } else {
+                sendWhatsApp(`${callingCode}${phoneNoFormat}`, `estoy interesado en sus servicios`)
+            }
+        } else if (type == "address") {
+            setModalNotification(true)
+            sendNotification()
+
+        }
+    }
+
+    const sendNotification = async () => {
+        setLoading(true)
+        const resultToken = await getDocumentById("users", getCurrentUser().uid)
+        if (!resultToken.statusResponse) {
+            setLoading(false)
+            Alert.alert("No se pudo obtener el token del usuario")
+        }
+
+        const messageNotification = setNotificationMessage(
+            resultToken.document.token,
+            "titulo de prueba",
+            "mensaje de prueba",
+            { data: 'Data de prueba' }
+        )
+
+        const response = await sendPushNotification(messageNotification)
+        setLoading(false)
+
+        if (response) {
+            Alert.alert("se ha enviado el mensaje")
+        } else {
+            Alert.alert("Ocurrio un problema enviando el mensaje")
+        }
+    }
+
     return (
         <View style={styles.viewRestaurantInfo}>
             <Text style={styles.restaurantInfoTitle}>
@@ -167,12 +272,23 @@ function RestaurantInfo({ name, location, address, email, phone }) {
                     >
                         <Icon
                             type="material-community"
-                            name={item.iconName}
+                            name={item.iconLeft}
                             color="#442484"
+                            onPress={() => actionLeft(item.type)}
                         />
                         <ListItem.Content>
                             <ListItem.Title>{item.text} </ListItem.Title>
                         </ListItem.Content>
+                        {
+                            item.iconRight && (
+                                <Icon
+                                    type="material-community"
+                                    name={item.iconRight}
+                                    color="#442484"
+                                    onPress={() => actionRight(item.type)}
+                                />
+                            )
+                        }
                     </ListItem>
                 ))
             }

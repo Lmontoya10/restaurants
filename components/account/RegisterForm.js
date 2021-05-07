@@ -2,10 +2,10 @@ import { size } from 'lodash'
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Button, Icon, Input } from 'react-native-elements'
-import {useNavigation} from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 
 import { validateEmail } from '../../utils/helpers'
-import {registerUser} from '../../utils/actions'
+import { getToken, registerUser, addDocumentWithId, getCurrentUser } from '../../utils/actions'
 import Loading from '../Loading'
 
 
@@ -26,18 +26,30 @@ export default function RegisterForm() {
 
     }
 
-    const doRegisterUser =async () => {
+    const doRegisterUser = async () => {
         if (!validateData()) {
             return
         }
         setLoading(true)
         const result = await registerUser(formData.email, formData.password)
-        setLoading(false)
+
         if (!result.statusResponse) {
+            setLoading(false)
             setErrorEmail(result.error)
             return
         }
 
+        const token = await getToken()
+        const resultUser = await addDocumentWithId("users", { token }, getCurrentUser().uid)
+
+        if (!resultUser.statusResponse) {
+            setLoading(false)
+            setErrorEmail(result.error)
+            return
+        }
+
+
+        setLoading(false)
         navigation.navigate("account")
     }
 
@@ -120,8 +132,8 @@ export default function RegisterForm() {
 
             />
             <Loading
-            isVisible={loading}
-            text="Creando cuenta...."
+                isVisible={loading}
+                text="Creando cuenta...."
             />
         </View>
     )
